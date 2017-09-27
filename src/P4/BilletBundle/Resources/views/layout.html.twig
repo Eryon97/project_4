@@ -1,0 +1,78 @@
+{# src/P4/BilletBundle/Resources/views/layout.html.twig #}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Musée du Louvre - Réservations"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="projet4.weberyon.ovh"/>
+    <meta property="og:image" content="http://www.pyramidedulouvre.net/wp-content/uploads/2016/02/pyramide-louvre-113.jpeg"/>    
+    <meta property="og:description" content="Musée du Louvre à Paris, page de réservation en ligne."/>  
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Musée du Louvre - Réservations">
+    <meta name="twitter:description" content="Musée du Louvre à Paris, page de réservation en ligne.">
+    <meta name="twitter:creator" content="@">
+    <!-- Twitter summary card with large image must be at least 280x150px -->
+    <meta name="twitter:image:src" content="http://www.pyramidedulouvre.net/wp-content/uploads/2016/02/pyramide-louvre-113.jpeg">  
+    
+    {# On charge le CSS de bootstrap depuis le site directement #}
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="{{ asset('bundles/p4billet/css/main.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('bundles/p4billet/datepicker/css/bootstrap-datepicker.css') }}" type="text/css" />
+
+    <title>Musée du Louvre - {% block title %}{% endblock %}</title>
+
+</head>
+<body>
+    {% block header %}{% endblock %}
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-target">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Musée du Louvre.</a>
+                </div>
+            </div><!-- /.container -->
+        </nav>
+
+        <div class="row">
+            <div id="info" class="col-sm-2 ">{% block info %}{% endblock %}</div>        
+            <div id="content" class=" col-sm-8">{% block content %}{% endblock %}</div>
+            <div id="recap" class=" col-sm-2 ">{% block recap %}{% endblock %}</div>
+        </div>
+        <div class="row">
+        <footer class="footer">
+            <strong>Site du Musée du Louvre, Paris. Tout droits réservés</strong>
+        </footer>
+    </div>
+    </div>
+
+<script type="text/javascript">
+if ($(window).width() > 767 ) {
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 350 ) {
+            $('#info').addClass('fixed');
+            $('#content').addClass('col-sm-offset-2');
+            $('#recap').addClass('col-sm-offset-10 fixed');
+        } else {
+            $('#info').removeClass('fixed');
+            $('#content').removeClass('col-sm-offset-2');
+            $('#recap').removeClass('col-sm-offset-10 fixed');
+        }
+    });
+};
+</script>
+
+</body>
+</html>
