@@ -3,6 +3,7 @@
 namespace P4\BilletBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Billet
@@ -25,6 +26,7 @@ class Billet
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
+     * @Assert\Length(min=2)
      */
     private $nom;
 
@@ -32,13 +34,14 @@ class Billet
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=255)
+     * @Assert\Length(min=2)     
      */
     private $prenom;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="naissance", type="string")
+     * @ORM\Column(name="naissance", type="date")
      */
     private $naissance;
 
@@ -46,6 +49,7 @@ class Billet
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
+     * @Assert\Email()
      */
     private $email;
 
@@ -118,7 +122,7 @@ class Billet
     /**
      * Set naissance
      *
-     * @param \DateTime $naissance
+     * @param date $naissance
      *
      * @return Billet
      */
@@ -132,7 +136,7 @@ class Billet
     /**
      * Get naissance
      *
-     * @return \DateTime
+     * @return date
      */
     public function getNaissance()
     {

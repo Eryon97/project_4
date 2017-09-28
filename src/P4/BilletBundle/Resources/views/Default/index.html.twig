@@ -132,15 +132,12 @@
         $(".senior").addClass("hide");
         $(".reduit").addClass("hide");
         for ( b=0; b<index; b++) {
-            $(".messageTarif" + b).addClass("hide");   
-            $(".inputErrorText"+b ).addClass("hide");
             $("#formulaire_billets_"+b+"_naissance").removeClass('inputError');            
             date = $("#formulaire_billets_"+b+"_naissance").datepicker("getDate");
             dateVisite = $('.visite').datepicker("getDate");
             calcul_age(date, dateVisite);
             if ( age >= 0) {
-                if ($(".tarif"+b).is(':checked')) {
-                    $(".messageTarif" + b).removeClass("hide");
+                if ($('#formulaire_billets_' + b + '_tarif').is(':checked')) {
                     prix = 10;
                     recapBillet(prix);
                 } else {
@@ -150,7 +147,6 @@
             } else {
                 $("#formulaire_billets_"+b+"_naissance").addClass('inputError');
                 $("#formulaire_billets_"+b+"_naissance").val('');
-                $(".inputErrorText"+b ).removeClass("hide");
             }
         }
       }); 

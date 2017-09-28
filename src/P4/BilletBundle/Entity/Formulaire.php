@@ -5,6 +5,7 @@ namespace P4\BilletBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use P4\BilletBundle\Entity\Billet;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Formulaire
@@ -24,14 +25,14 @@ class Formulaire
     private $id;
 
     /**
-     * @var string
+     * @var date
      *
-     * @ORM\Column(name="Date", type="string", length=255)
+     * @ORM\Column(name="Date", type="date")
      */
     private $date;
 
     /**
-     * @var int
+     * @var string
      *
      * @ORM\Column(name="nombre", type="integer")
      */
@@ -70,7 +71,7 @@ class Formulaire
     /**
      * Set date
      *
-     * @param string $date
+     * @param date $date
      *
      * @return Formulaire
      */
@@ -84,7 +85,7 @@ class Formulaire
     /**
      * Get date
      *
-     * @return string
+     * @return date
      */
     public function getDate()
     {
