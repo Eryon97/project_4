@@ -1,0 +1,38 @@
+{# src/P4/BilletBundle/Resources/views/Default/commande.html.twig #}
+
+{% extends "P4BilletBundle::layout.html.twig" %}
+
+{% block content %}
+
+    <p class="big"> Paiement </p>
+
+    <div class="well">
+    <p>Récapitulatif</p>
+        <table>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Date de naisance</th>
+                <th>Tarif réduit</th>
+                <th>Prix</th>
+            </tr>
+            {% for billet in billets %}
+                <tr>
+                    <td>{{ billet.nom }}</td>
+                    <td>{{ billet.prenom }}</td>
+                    <td>{{ billet.email }}</td>
+                    <td>{{ billet.naissance }}</td>
+                    {% if billet.tarif == true %}
+                        <td> Oui </td>
+                    {% else %}
+                        <td> Non </td>
+                    {% endif %}
+                    <td>{{ billet.prix }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <p class="total">Total : {{ total }}</p>
+    </div>
+
+{% endblock %}

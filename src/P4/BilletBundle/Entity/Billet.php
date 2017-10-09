@@ -60,6 +60,13 @@ class Billet
      */
     private $tarif;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="prix", type="integer")
+     */
+     private $prix;
+
 
     /**
      * Get id
@@ -189,6 +196,30 @@ class Billet
     public function getTarif()
     {
         return $this->tarif;
+    }
+
+    /**
+     * Set prix
+     *
+     * @param int $prix
+     *
+     * @return Billet
+     */
+     public function setPrix($prix)
+     {
+         $this->prix = $prix;
+ 
+         return $this;
+     }
+
+     /**
+     * Get prix
+     *
+     * @return int
+     */
+    public function getPrix()
+    {
+        return $this->prix;
     }
 }
 
