@@ -12,7 +12,6 @@
             <tr>
                 <th>Nom</th>
                 <th>Prénom</th>
-                <th>Email</th>
                 <th>Date de naisance</th>
                 <th>Tarif réduit</th>
                 <th>Prix</th>
@@ -21,7 +20,6 @@
                 <tr>
                     <td>{{ billet.nom }}</td>
                     <td>{{ billet.prenom }}</td>
-                    <td>{{ billet.email }}</td>
                     <td>{{ billet.naissance }}</td>
                     {% if billet.tarif == true %}
                         <td> Oui </td>
@@ -32,7 +30,23 @@
                 </tr>
             {% endfor %}
         </table>
-        <p class="total">Total : {{ total }}</p>
+        <h2 class="total">Total : {{ total }}€</h2>
+
+        <form action="" method="POST">
+            <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="pk_test_pMyWr6cVI4597BGsjyVpiQFj"
+                data-amount= {{ total * 100}}
+                data-name="Musée du Louvre"
+                data-description="Paiement"
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="auto"
+                data-label="Payer par CB"
+                data-allow-remember-me="false"
+                data-zip-code="true"
+                data-currency="eur">
+            </script>
+        </form>
     </div>
 
 {% endblock %}

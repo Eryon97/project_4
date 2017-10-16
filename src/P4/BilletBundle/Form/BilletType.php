@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,8 +18,9 @@ class BilletType extends AbstractType
         $builder
         ->add('nom', TextType::class)
         ->add('prenom', TextType::class)
-        ->add('naissance', TextType::class)
-        ->add('email', EmailType::class)
+        ->add('naissance', TextType::class, array(
+            'label' => 'Date de naissance',
+        ))
         ->add('tarif', CheckBoxType::class, array(
             'required' => false,
             'label' => 'Tarif réduit',

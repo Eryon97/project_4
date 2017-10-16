@@ -45,9 +45,16 @@ class Formulaire
      */
     private $type;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255)
+     * @Assert\Email()
+     */
+     private $email;
 
     /**
-    * @ORM\ManyToMany(targetEntity="P4\BilletBundle\Entity\Billet", cascade={"persist"})
+    * @ORM\OneToMany(targetEntity="P4\BilletBundle\Entity\Billet", mappedBy="formulaire")
     * @ORM\JoinTable(name="p4_formulaire_billet")
     */
     private $billets;
@@ -139,6 +146,30 @@ class Formulaire
     {
         return $this->type;
     }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return Billet
+     */
+     public function setEmail($email)
+     {
+         $this->email = $email;
+ 
+         return $this;
+     }
+ 
+     /**
+      * Get email
+      *
+      * @return string
+      */
+     public function getEmail()
+     {
+         return $this->email;
+     }
 
     /**
     * @param Billet $billet

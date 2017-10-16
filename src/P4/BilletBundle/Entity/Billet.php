@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="P4\BilletBundle\Repository\BilletRepository")
  */
 class Billet
-{
+{    
     /**
      * @var int
      *
@@ -46,14 +46,6 @@ class Billet
     private $naissance;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
-     * @Assert\Email()
-     */
-    private $email;
-
-    /**
      * @var bool
      *
      * @ORM\Column(name="tarif", type="boolean")
@@ -67,7 +59,13 @@ class Billet
      */
      private $prix;
 
-
+     /**
+     * @var object
+     * 
+     * @ORM\ManyToOne(targetEntity="P4\BilletBundle\Entity\Formulaire", inversedBy="billets")
+     */
+     private $formulaire;
+    
     /**
      * Get id
      *
@@ -151,30 +149,6 @@ class Billet
     }
 
     /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return Billet
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
      * Set tarif
      *
      * @param boolean $tarif
@@ -221,5 +195,36 @@ class Billet
     {
         return $this->prix;
     }
-}
 
+    /**
+     * Set formulaire
+     *
+     * @param Formulaire $formulaire
+     *
+     * @return Billet
+     */
+     public function setFormulaire(Formulaire $formulaire = null)
+     {
+        if ($this->formulaire !== null) {
+            $this->formulaire->removeBillet($this);
+        }
+
+        $this->formulaire = $formulaire;
+
+        if ($this->formulaire !== null) {
+            $this->formulaire->addBillet($this);
+        }
+ 
+        return $this;
+     }
+
+     /**
+     * Get formulaire
+     *
+     * @return Formulaire
+     */
+    public function getFormulaire()
+    {
+        return $this->formulaire;
+    }
+}

@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -29,6 +30,7 @@ class FormulaireType extends AbstractType
                 'Demi-Journée' => 'demi_journee',
             )
         ))
+        ->add('email', EmailType::class)
         ->add('billets', CollectionType::class, array(
             'entry_type' => BilletType::class,
             'allow_add'    => true,
