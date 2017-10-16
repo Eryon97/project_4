@@ -22,7 +22,7 @@ class FormulaireType extends AbstractType
         $builder
         ->add('date', TextType::class)
         ->add('nombre', IntegerType::class, array(
-            'attr' => array('min' => 1, 'max' => 1000)
+            'attr' => array('min' => 1, 'max' => 25)
         ))
         ->add('type', ChoiceType::class, array(
             'choices' => array(

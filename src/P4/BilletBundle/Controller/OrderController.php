@@ -27,13 +27,12 @@ class OrderController extends Controller
  
          // Get the credit card details submitted by the form
          $token = $_POST['stripeToken'];
-
-         var_dump($_POST);
+         $somme = $_POST['somme'];
  
          // Create a charge: this will charge the user's card
          try {
              $charge = \Stripe\Charge::create(array(
-                 "amount" => 1000, // Amount in cents
+                 "amount" => $somme, // Amount in cents
                  "currency" => "eur",
                  "source" => $token,
                  "description" => "Paiement Musée du Louvre"
