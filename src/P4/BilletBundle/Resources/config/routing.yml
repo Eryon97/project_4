@@ -1,7 +1,7 @@
 p4_billet_homepage:
-    path:     /
+    path: /
     defaults: { _controller: P4BilletBundle:Formulaire:index }
 
-p4_billet_commande:
-    path: /paiement
-    defaults: { _controller: P4BilletBundle:Formulaire:paiement}
+p4_billet_checkout:
+    path: /checkout
+    defaults: { _controller: P4BilletBundle:Order:checkout}
