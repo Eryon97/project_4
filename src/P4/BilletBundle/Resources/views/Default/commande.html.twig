@@ -2,6 +2,11 @@
 
 {% extends "P4BilletBundle::layout.html.twig" %}
 
+{% block header %}
+<div class="header">
+</div>
+{% endblock %}
+
 {% block content %}
 
     <p class="big"> Paiement </p>
@@ -30,13 +35,13 @@
                 </tr>
             {% endfor %}
         </table>
-        <h2 class="total">Total : {{ total }}€</h2>
+        <h2 class="total">Total : {{ somme }}€</h2>
 
         <form action="{{ 'checkout' }}" method="POST">
             <script
                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                data-key="pk_test_pMyWr6cVI4597BGsjyVpiQFj"
-                data-amount= {{ total * 100}}
+                data-key="{{ stripe_pk }}"
+                data-amount={{ somme * 100 }}
                 data-name="Musée du Louvre"
                 data-description="Paiement"
                 data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
@@ -46,7 +51,6 @@
                 data-zip-code="true"
                 data-currency="eur">
             </script>
-            <input type="hidden" name="somme" value="{{ total * 100 }}"></input>
         </form>
     </div>
 

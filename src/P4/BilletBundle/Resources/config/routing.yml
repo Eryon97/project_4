@@ -2,6 +2,10 @@ p4_billet_homepage:
     path: /
     defaults: { _controller: P4BilletBundle:Formulaire:index }
 
+p4_billet_confirm:
+    path: /confirm
+    defaults: { _controller: P4BilletBundle:Formulaire:validation}
+
 p4_billet_checkout:
     path: /checkout
     defaults: { _controller: P4BilletBundle:Order:checkout}
