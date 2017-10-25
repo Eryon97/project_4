@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class OrderController extends Controller
 {
-     public function checkAction()
+     public function checkoutAction()
      {
         \Stripe\Stripe::setApiKey($this->getParameter("stripe_sk"));
  
@@ -27,14 +27,10 @@ class OrderController extends Controller
                 "source" => $token,
                 "description" => "Paiement Musée du Louvre"
             ));
-            return $this->redirectToRoute("confirm");
+            return $this->redirectToRoute("p4_billet_confirm");
         } catch(\Stripe\Error\Card $e) {
             
-            return $this->redirectToRoute("homepage");
+            return $this->redirectToRoute("p4_billet_homepage");
         }
-    }
-    public function checkoutAction()
-    {
-        return $this->redirectToRoute("confirm");
     }
 }

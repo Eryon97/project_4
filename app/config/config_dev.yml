@@ -36,9 +36,3 @@ monolog:
         #chromephp:
         #    type: chromephp
         #    level: info
-
-swiftmailer:
-    transport: gmail
-    username:  "%gmail_user%"
-    password:  "%gmail_password%"
-    delivery_address: "%gmail_user%"
