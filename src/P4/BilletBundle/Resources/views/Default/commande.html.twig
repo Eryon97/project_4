@@ -35,13 +35,13 @@
                 </tr>
             {% endfor %}
         </table>
-        <h2 class="total">Total : {{ somme }}€</h2>
+        <h2 class="total">Total : {{ somme / 100 }} €</h2>
 
         <form action="{{ 'checkout' }}" method="POST">
             <script
                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                 data-key="{{ stripe_pk }}"
-                data-amount={{ somme * 100 }}
+                data-amount={{ somme }}
                 data-name="Musée du Louvre"
                 data-description="Paiement"
                 data-image="https://stripe.com/img/documentation/checkout/marketplace.png"

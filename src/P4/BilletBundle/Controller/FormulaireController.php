@@ -16,32 +16,13 @@ class FormulaireController extends Controller
     {  
         $formulaire = new Formulaire();
         $form = $this->createForm(FormulaireType::class, $formulaire);
-        $somme = 0;
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $calculs = $this->container->get('p4_billet.calculs');
-            $date = $formulaire->getDate();
-            $billets = $formulaire->getBillets();
-            $mail = $formulaire->getEmail();
-            foreach ($billets as $billet) {
-                $naissance = $billet->getNaissance();
-                $age = $calculs->age($naissance, $date);
-                $tarif = $billet->getTarif();
-                if ($tarif == true) {
-                    $prix = 10;
-                } elseif ($tarif == false ) {
-                    $prix = $calculs->prix($age);
-                }
-                $somme = $somme + $prix;
-                $billet->setPrix($prix);
-                $naissances[] = $naissance;
-                $ages[] = $age;
-                $tabPrix[] = $prix;
-            }
-            $_SESSION['somme'] = ($somme * 100);
-            $_SESSION['email'] = $mail;
-            var_dump($date, $billets, $naissances, $ages, $tabPrix);
+            $forms = $this->container->get('p4_billet.forms');
+            $billets = $forms->billets($formulaire);
+            $somme = $_SESSION['somme'];
+            var_dump($billets);
             return $this->render('P4BilletBundle:Default:commande.html.twig', array(
                 'billets' => $billets,
                 'somme' => $somme,
