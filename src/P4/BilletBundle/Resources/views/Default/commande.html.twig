@@ -9,49 +9,60 @@
 
 {% block content %}
 
-    <p class="big"> Paiement </p>
+    <p class="big">Récapitulatif et Paiement</p>
 
     <div class="well">
-    <p>Récapitulatif</p>
-        <table>
-            <tr>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Date de naisance</th>
-                <th>Tarif réduit</th>
-                <th>Prix</th>
-            </tr>
-            {% for billet in billets %}
+        <table class="table table-condensed">
+            <thead>
                 <tr>
-                    <td>{{ billet.nom }}</td>
-                    <td>{{ billet.prenom }}</td>
-                    <td>{{ billet.naissance }}</td>
-                    {% if billet.tarif == true %}
-                        <td> Oui </td>
-                    {% else %}
-                        <td> Non </td>
-                    {% endif %}
-                    <td>{{ billet.prix }}€</td>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Date de naisance</th>
+                    <th>Tarif réduit</th>
+                    <th>Prix</th>
                 </tr>
-            {% endfor %}
+            </thead>
+            <tbody>
+                {% for billet in billets %}
+                    <tr>
+                        <td>{{ billet.nom }}</td>
+                        <td>{{ billet.prenom }}</td>
+                        <td>{{ billet.naissance }}</td>
+                        {% if billet.tarif == true %}
+                            <td> Oui </td>
+                        {% else %}
+                            <td> Non </td>
+                        {% endif %}
+                        <td>{{ billet.prix }}€</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Total : {{ somme / 100 }} €
+                        <form action="{{ 'checkout' }}" method="POST">
+                            <script
+                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                data-key="{{ stripe_pk }}"
+                                data-amount={{ somme }}
+                                data-name="Musée du Louvre"
+                                data-description="Paiement"
+                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                data-locale="auto"
+                                data-label="Payer par CB"
+                                data-allow-remember-me="false"
+                                data-zip-code="true"
+                                data-currency="eur">
+                            </script>
+                        </form>
+                    </th>
+                </tr>
+            </tbody>
         </table>
-        <h2 class="total">Total : {{ somme / 100 }} €</h2>
 
-        <form action="{{ 'checkout' }}" method="POST">
-            <script
-                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                data-key="{{ stripe_pk }}"
-                data-amount={{ somme }}
-                data-name="Musée du Louvre"
-                data-description="Paiement"
-                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                data-locale="auto"
-                data-label="Payer par CB"
-                data-allow-remember-me="false"
-                data-zip-code="true"
-                data-currency="eur">
-            </script>
-        </form>
+
     </div>
 
 {% endblock %}
