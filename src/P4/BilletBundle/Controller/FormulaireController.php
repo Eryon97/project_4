@@ -22,7 +22,7 @@ class FormulaireController extends Controller
             $forms = $this->container->get('p4_billet.forms');
             $billets = $forms->billets($formulaire);
             $somme = $_SESSION['somme'];
-            var_dump($billets);
+            $_SESSION['billets'] = $billets;
             return $this->render('P4BilletBundle:Default:commande.html.twig', array(
                 'billets' => $billets,
                 'somme' => $somme,
@@ -37,15 +37,12 @@ class FormulaireController extends Controller
     public function validationAction()
     {
         $delivery = $_SESSION['email'];
-        var_dump($delivery);
-        $message = (new \Swift_Message('Confirmation Email'))
+        $billets = $_SESSION['billets'];
+        $message = (new \Swift_Message('Confirmation de commande'))
         ->setFrom('eryongaming@gmail.com')
         ->setTo($delivery)
         ->setBody(
-            $this->renderView(
-                // app/Resources/views/Emails/registration.html.twig
-                'Emails/registration.html.twig'
-            ),
+            $this->renderView('P4BilletBundle:Emails:registration.html.twig', array( 'billets' => $billets )),
             'text/html'
         );
 

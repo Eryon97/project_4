@@ -19,6 +19,11 @@ class P4Forms
             } elseif ($tarif == false ) {
                 $prix = $this->prix($age);
             }
+            $nom = $billet->getNom();
+            $prenom = $billet->getPrenom();
+            $anniv = $billet->getNaissance();
+            $cle = "MDL" . $date . $nom . $prenom . $anniv . "";
+            $billet->setCle(sha1($cle));
             $somme = $somme + $prix;
             $billet->setPrix($prix);
         }

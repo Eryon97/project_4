@@ -1,0 +1,30 @@
+{# app/Resources/views/Emails/registration.html.twig #}
+
+<h3>Confirmation de commande Musée du Louvre</h3>
+
+<p>Bonjour, </p>
+
+<p>Nous vous remercions d'avoir passé commande sur notre boutique en ligne. </br>
+Cet Email tient comme confirmation de votre commande dont voici les billets : </br></p> 
+
+<table>
+    <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Date de naisance</th>
+        <th>Tarif réduit</th>
+    </tr>
+    {% for billet in billets %}
+        <tr>
+            <td>{{ billet.nom }}</td>
+            <td>{{ billet.prenom }}</td>
+            <td>{{ billet.naissance }}</td>
+            {% if billet.tarif == true %}
+                <td> Oui </td>
+            {% else %}
+                <td> Non </td>
+            {% endif %}>
+        </tr>
+        {{ billet.cle }}
+    {% endfor %}
+</table>

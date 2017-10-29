@@ -60,6 +60,13 @@ class Billet
      private $prix;
 
      /**
+     * @var string
+     *
+     * @ORM\Column(name="cle", type="string")
+     */
+     private $cle;
+
+     /**
      * @var object
      * 
      * @ORM\ManyToOne(targetEntity="P4\BilletBundle\Entity\Formulaire", inversedBy="billets")
@@ -194,6 +201,30 @@ class Billet
     public function getPrix()
     {
         return $this->prix;
+    }
+
+    /**
+     * Set cle
+     *
+     * @param string $cle
+     *
+     * @return Billet
+     */
+     public function setCle($cle)
+     {
+         $this->cle = $cle;
+ 
+         return $this;
+     }
+
+     /**
+     * Get cle
+     *
+     * @return string
+     */
+    public function getCle()
+    {
+        return $this->cle;
     }
 
     /**

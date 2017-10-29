@@ -16,8 +16,6 @@ class OrderController extends Controller
         // Get the credit card details submitted by the form
         $token = $_POST['stripeToken'];
         $somme = $_SESSION['somme'];
-
-        var_dump($_SESSION);
  
         // Create a charge: this will charge the user's card
         try {
