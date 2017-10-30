@@ -34,7 +34,7 @@ class FormulaireController extends Controller
         ));
     }
 
-    public function validationAction()
+    public function validationAction(Request $request)
     {
         $delivery = $_SESSION['email'];
         $billets = $_SESSION['billets'];
@@ -48,6 +48,8 @@ class FormulaireController extends Controller
 
         $this->get('mailer')->send($message);
 
-        return $this->render('P4BilletBundle:Default:validation.html.twig');
+        $request->getSession()->getFlashBag()->add('info', 'Paiement accepté, un email va vous etre envoyé.');
+
+        return $this->redirectToRoute('p4_billet_homepage');
     }
 }

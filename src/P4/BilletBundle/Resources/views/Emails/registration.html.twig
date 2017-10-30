@@ -16,10 +16,19 @@ Cet Email tient comme confirmation de votre commande dont voici les billets : </
             <th>Prénom</th>
             <th>Date de naisance</th>
             <th>Tarif réduit</th>
+            <th>Clé du billet</th>
         </tr>
     </thead>
     <tbody>
         {% for billet in billets %}
+            <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td> </td>
+            </tr>   
             <tr>
                 <td>{{ billet.nom }}</td>
                 <td>{{ billet.prenom }}</td>
@@ -28,9 +37,9 @@ Cet Email tient comme confirmation de votre commande dont voici les billets : </
                     <td> Oui </td>
                 {% else %}
                     <td> Non </td>
-                {% endif %}>
+                {% endif %}
                 <td>{{ billet.cle }}</td>
-            </tr>
+            </tr>     
         {% endfor %}
     </tbody>
 </table>
