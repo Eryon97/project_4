@@ -39,6 +39,13 @@ class Billets
     private $prenom;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="pays", type="string", length=255)    
+     */
+     private $pays;
+
+    /**
      * @var date
      *
      * @ORM\Column(name="naissance", type="date")
@@ -130,6 +137,30 @@ class Billets
     {
         return $this->prenom;
     }
+
+    /**
+     * Set pays
+     *
+     * @param string $pays
+     *
+     * @return Billet
+     */
+     public function setPays($pays)
+     {
+         $this->pays = $pays;
+ 
+         return $this;
+     }
+ 
+     /**
+      * Get pays
+      *
+      * @return string
+      */
+     public function getPays()
+     {
+         return $this->pays;
+     }
 
     /**
      * Set naissance

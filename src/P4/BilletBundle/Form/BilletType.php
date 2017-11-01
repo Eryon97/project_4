@@ -5,7 +5,7 @@ namespace P4\BilletBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,11 +13,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BilletType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
         ->add('nom', TextType::class)
         ->add('prenom', TextType::class)
+        ->add('pays', CountryType::class, array(
+            'placeholder' => 'France',
+        ))
         ->add('naissance', DateType::class, array(
             'label' => 'Date de naissance',
             'widget' => 'single_text',
