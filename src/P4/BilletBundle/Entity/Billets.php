@@ -8,10 +8,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Billet
  *
- * @ORM\Table(name="billet")
+ * @ORM\Table(name="billets")
  * @ORM\Entity(repositoryClass="P4\BilletBundle\Repository\BilletRepository")
  */
-class Billet
+class Billets
 {    
     /**
      * @var int

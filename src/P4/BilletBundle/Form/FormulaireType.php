@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
@@ -20,7 +21,10 @@ class FormulaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('date', TextType::class)
+        ->add('date', DateType::class, array(
+            'widget' => 'single_text',
+            'format' => 'dd/MM/yyyy',
+        ))
         ->add('nombre', IntegerType::class, array(
             'attr' => array('min' => 1, 'max' => 25)
         ))
@@ -35,7 +39,6 @@ class FormulaireType extends AbstractType
             'entry_type' => BilletType::class,
             'allow_add'    => true,
             'allow_delete' => true,
-            'label_attr' => array('class' => 'totalBillets'),
         ))
         ->add('save', SubmitType::class, array(
             'label' => 'Paiement'

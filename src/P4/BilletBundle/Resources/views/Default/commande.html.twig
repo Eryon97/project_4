@@ -27,7 +27,7 @@
                     <tr>
                         <td>{{ billet.nom }}</td>
                         <td>{{ billet.prenom }}</td>
-                        <td>{{ billet.naissance }}</td>
+                        <td>{{ billet.naissance|date('d/m/Y') }}</td>
                         {% if billet.tarif == true %}
                             <td> Oui </td>
                         {% else %}

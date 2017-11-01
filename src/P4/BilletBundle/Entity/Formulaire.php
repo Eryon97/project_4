@@ -54,8 +54,8 @@ class Formulaire
      private $email;
 
     /**
-    * @ORM\OneToMany(targetEntity="P4\BilletBundle\Entity\Billet", mappedBy="formulaire")
-    * @ORM\JoinTable(name="p4_formulaire_billet")
+    * @ORM\OneToMany(targetEntity="P4\BilletBundle\Entity\Billets", mappedBy="formulaire")
+    * @ORM\JoinTable(name="p4_formulaire_billets")
     */
     private $billets;
 

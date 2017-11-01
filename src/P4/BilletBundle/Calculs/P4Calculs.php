@@ -10,16 +10,8 @@ class P4Calculs
     * @return int 
     */
 
-    public function age($naissance, $dateVisite) {
-        list( $jour, $mois, $annee ) = sscanf( $naissance, "%d/%d/%d");
-        list( $jourVisite, $moisVisite, $anneeVisite ) = sscanf( $dateVisite, "%d/%d/%d");
-        $age = $anneeVisite - $annee;
-        if ( $moisVisite < $mois){
-            $age--;
-        } if (($moisVisite == $mois) && ($jourVisite < $jour)){
-            $age--;
-        }
-        return $age;
+    public function age( \DateTime $naissance, \DateTime $dateVisite) {
+        return $dateVisite->diff($naissance)->y;
     }
 
     /** S'occupe du calcul du prix en fonction de l'age

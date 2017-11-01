@@ -3,7 +3,7 @@
 namespace P4\BilletBundle\Controller;
 
 use P4\BilletBundle\Entity\Formulaire;
-use P4\BilletBundle\Entity\Billet;
+use P4\BilletBundle\Entity\Billets;
 use P4\BilletBundle\Form\FormulaireType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -23,6 +23,7 @@ class FormulaireController extends Controller
             $billets = $forms->billets($formulaire);
             $somme = $_SESSION['somme'];
             $_SESSION['billets'] = $billets;
+            $_SESSION['formulaire'] = $formulaire;
             return $this->render('P4BilletBundle:Default:commande.html.twig', array(
                 'billets' => $billets,
                 'somme' => $somme,
@@ -38,6 +39,7 @@ class FormulaireController extends Controller
     {
         $delivery = $_SESSION['email'];
         $billets = $_SESSION['billets'];
+        $formulaire = $_SESSION['formulaire'];
         $message = (new \Swift_Message('Confirmation de commande'))
         ->setFrom('eryongaming@gmail.com')
         ->setTo($delivery)
@@ -48,7 +50,15 @@ class FormulaireController extends Controller
 
         $this->get('mailer')->send($message);
 
-        $request->getSession()->getFlashBag()->add('info', 'Paiement accepté, un email va vous etre envoyé.');
+        $em = $this->getDoctrine()->getManager();
+        foreach ($billets as $billet)
+        {
+            $em->persist($billet);
+        }
+        $em->persist($formulaire);
+        $em->flush();
+
+        $request->getSession()->getFlashBag()->add('success', 'Paiement accepté, merci de votre commande, un email va vous etre envoyé.');
 
         return $this->redirectToRoute('p4_billet_homepage');
     }

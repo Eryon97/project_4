@@ -18,8 +18,10 @@ class BilletType extends AbstractType
         $builder
         ->add('nom', TextType::class)
         ->add('prenom', TextType::class)
-        ->add('naissance', TextType::class, array(
+        ->add('naissance', DateType::class, array(
             'label' => 'Date de naissance',
+            'widget' => 'single_text',
+            'format' => 'dd/MM/yyyy',
         ))
         ->add('tarif', CheckBoxType::class, array(
             'required' => false,
@@ -33,7 +35,7 @@ class BilletType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'P4\BilletBundle\Entity\Billet'
+            'data_class' => 'P4\BilletBundle\Entity\Billets'
         ));
     }
 }

@@ -8,8 +8,8 @@
 <div class="header">
 </div>
 
-{% for message in app.session.flashbag.get('info') %}
-    <div class="alert alert-info center">Message flash : {{ message }}</div>
+{% for message in app.session.flashbag.get('success') %}
+    <div class="alert alert-success center">{{ message }}</div>
 {% endfor %}
 {% endblock %}
 
