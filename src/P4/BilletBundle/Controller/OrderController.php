@@ -28,7 +28,7 @@ class OrderController extends Controller
             return $this->redirectToRoute("p4_billet_confirm");
         } catch(\Stripe\Error\Card $e) {
             
-            return $this->redirectToRoute("p4_billet_homepage");
+            return $this->redirectToRoute("p4_billet_resume");
         }
     }
 }

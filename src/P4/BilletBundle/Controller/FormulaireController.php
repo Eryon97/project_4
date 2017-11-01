@@ -8,7 +8,6 @@ use P4\BilletBundle\Form\FormulaireType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Swiftmailer\Swiftmailer;
 
 class FormulaireController extends Controller
 {
@@ -24,15 +23,26 @@ class FormulaireController extends Controller
             $somme = $_SESSION['somme'];
             $_SESSION['billets'] = $billets;
             $_SESSION['formulaire'] = $formulaire;
-            return $this->render('P4BilletBundle:Default:commande.html.twig', array(
-                'billets' => $billets,
-                'somme' => $somme,
-            ));
+            return $this->redirectToRoute('p4_billet_resume');
         }
 
         return $this->render('P4BilletBundle:Default:index.html.twig', array(
             'form' => $form->createView(),
         ));
+    }
+
+    public function resumeAction(Request $request)
+    {
+        if ( $_SESSION['billets'])
+        {
+            $billets = $_SESSION['billets'];
+            $somme = $_SESSION['somme'];
+
+            return $this->render('P4BilletBundle:Default:commande.html.twig', array(
+                'billets' => $billets,
+                'somme' => $somme,
+            ));
+        }
     }
 
     public function validationAction(Request $request)
