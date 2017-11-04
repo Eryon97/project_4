@@ -11,6 +11,9 @@
 {% for message in app.session.flashbag.get('success') %}
     <div class="alert alert-success center">{{ message }}</div>
 {% endfor %}
+{% for message in app.session.flashbag.get('warning') %}
+    <div class="alert alert-warning center">{{ message }}</div>
+{% endfor %}
 {% endblock %}
 
 {% block info %}

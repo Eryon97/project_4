@@ -23,7 +23,7 @@ class BilletType extends AbstractType
         ->add('nom', TextType::class)
         ->add('prenom', TextType::class)
         ->add('pays', CountryType::class, array(
-            'placeholder' => 'France',
+            'placeholder' => 'Choisir un pays',
         ))
         ->add('naissance', DateType::class, array(
             'label' => 'Date de naissance',

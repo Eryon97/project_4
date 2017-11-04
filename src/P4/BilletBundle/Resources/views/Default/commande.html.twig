@@ -18,6 +18,7 @@
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Date de naisance</th>
+                    <th>Pays</th>
                     <th>Tarif réduit</th>
                     <th>Prix</th>
                 </tr>
@@ -28,6 +29,7 @@
                         <td>{{ billet.nom }}</td>
                         <td>{{ billet.prenom }}</td>
                         <td>{{ billet.naissance|date('d/m/Y') }}</td>
+                        <td>{{ billet.pays }}</td>
                         {% if billet.tarif == true %}
                             <td> Oui </td>
                         {% else %}
@@ -58,6 +60,7 @@
                             </script>
                         </form>
                     </th>
+                    <th></th>                    
                 </tr>
             </tbody>
         </table>

@@ -8,9 +8,11 @@ use P4\BilletBundle\Form\FormulaireType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManager;
 
 class FormulaireController extends Controller
 {
+    
     public function indexAction(Request $request)
     {  
         $formulaire = new Formulaire();
@@ -23,7 +25,26 @@ class FormulaireController extends Controller
             $somme = $_SESSION['somme'];
             $_SESSION['billets'] = $billets;
             $_SESSION['formulaire'] = $formulaire;
-            return $this->redirectToRoute('p4_billet_resume');
+            $date = $formulaire->getDate();
+            $nbBillet = $formulaire->getNombre();
+            $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('P4BilletBundle:Billets');
+
+            $qb= $repository->createQueryBuilder('t');
+            $qb->select('count(t.date)');
+            $qb->where('t.date = :date');
+            $qb->setParameter('date', $date);
+            $nombre= $qb->getQuery()->getSingleScalarResult();
+            $nombre = $nombre + $nbBillet;
+            
+            if ($nombre >= 2)
+            {
+                $request->getSession()->getFlashBag()->add('warning', 'Attention, la limite d\'accueil du musée est atteinte pour cette date, veuillez choisir une autre date.');
+                return $this->redirectToRoute('p4_billet_homepage');
+            } else {
+                return $this->redirectToRoute('p4_billet_resume');
+            }            
         }
 
         return $this->render('P4BilletBundle:Default:index.html.twig', array(
@@ -37,6 +58,9 @@ class FormulaireController extends Controller
         {
             $billets = $_SESSION['billets'];
             $somme = $_SESSION['somme'];
+            $nb = $_SESSION['nb'];
+
+            var_dump($nb);
 
             return $this->render('P4BilletBundle:Default:commande.html.twig', array(
                 'billets' => $billets,

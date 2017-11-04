@@ -26,6 +26,7 @@ class P4Forms
             $billet->setCle(sha1($cle));
             $somme = $somme + $prix;
             $billet->setPrix($prix);
+            $billet->setDate($date);
         }
         $_SESSION['somme'] = ($somme * 100);
         $_SESSION['email'] = $mail;
@@ -60,5 +61,9 @@ class P4Forms
             $prix = 12;
         } else {}
         return $prix;
+    }
+
+    public function nombre() {
+        
     }
 }

@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Billet
  *
  * @ORM\Table(name="billets")
- * @ORM\Entity(repositoryClass="P4\BilletBundle\Repository\BilletRepository")
+ * @ORM\Entity(repositoryClass="P4\BilletBundle\Repository\BilletsRepository")
  */
 class Billets
 {    
@@ -21,6 +21,13 @@ class Billets
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var date
+     *
+     * @ORM\Column(name="date", type="date")
+     */
+     private $date;
 
     /**
      * @var string
@@ -89,6 +96,30 @@ class Billets
     {
         return $this->id;
     }
+
+    /**
+     * Set date
+     *
+     * @param date $date
+     *
+     * @return Billet
+     */
+     public function setDate($date)
+     {
+         $this->date = $date;
+ 
+         return $this;
+     }
+ 
+     /**
+      * Get date
+      *
+      * @return date
+      */
+     public function getDate()
+     {
+         return $this->date;
+     }
 
     /**
      * Set nom
