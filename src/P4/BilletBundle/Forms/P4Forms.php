@@ -13,9 +13,8 @@ class P4Forms
         $date = $formulaire->getDate();
         $jourVisite = date('d', ($date->format('dmY')));
         $now = date('dmY');
-        var_dump($date, $now);
         $jour = date('d', ($now));
-        $heure = date('H', ($now));        
+        $heure = date('H', ($now));      
         if ( $heure >= 14 && $jourVisite == $jour)
         {
             $formulaire->setType("demi_journee");

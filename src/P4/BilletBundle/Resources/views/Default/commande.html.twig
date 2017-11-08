@@ -12,6 +12,11 @@
     <p class="big">Récapitulatif et Paiement</p>
 
     <div class="well">
+        {% if formulaire.type == 'journee' %}
+            <p> Type de billets : Journée </p>
+        {% elseif formulaire.type == 'demi_journee' %}
+            <p> Type de billets : Demi-Journée </p>
+        {% endif %}
         <table class="table table-condensed">
             <thead>
                 <tr>
@@ -64,8 +69,6 @@
                 </tr>
             </tbody>
         </table>
-
-
     </div>
 
 {% endblock %}

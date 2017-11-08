@@ -39,7 +39,7 @@ class FormulaireController extends Controller
             $nombre = $nombre + $nbBillet;
             $_SESSION['nb'] = $nombre;
             
-            if ($nombre >= 2)
+            if ($nombre >= 3)
             {
                 $request->getSession()->getFlashBag()->add('warning', 'Attention, la limite d\'accueil du musée est atteinte pour cette date, veuillez choisir une autre date.');
                 return $this->redirectToRoute('p4_billet_homepage');
@@ -57,15 +57,15 @@ class FormulaireController extends Controller
     {
         if ( $_SESSION['billets'])
         {
+            $formulaire = $_SESSION['formulaire'];
             $billets = $_SESSION['billets'];
             $somme = $_SESSION['somme'];
             $nb = $_SESSION['nb'];
 
-            var_dump($nb);
-
             return $this->render('P4BilletBundle:Default:commande.html.twig', array(
                 'billets' => $billets,
                 'somme' => $somme,
+                'formulaire' => $formulaire,
             ));
         }
     }
