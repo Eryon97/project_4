@@ -37,6 +37,7 @@ class FormulaireController extends Controller
             $qb->setParameter('date', $date);
             $nombre= $qb->getQuery()->getSingleScalarResult();
             $nombre = $nombre + $nbBillet;
+            $_SESSION['nb'] = $nombre;
             
             if ($nombre >= 2)
             {

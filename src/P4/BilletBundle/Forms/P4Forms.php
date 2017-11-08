@@ -2,12 +2,26 @@
 
 namespace P4\BilletBundle\Forms;
 
+use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints\Date;
+
 class P4Forms
 {
     public function billets($formulaire)
     {
         $somme = 0;
         $date = $formulaire->getDate();
+        $jourVisite = date('d', ($date->format('dmY')));
+        $now = date('dmY');
+        var_dump($date, $now);
+        $jour = date('d', ($now));
+        $heure = date('H', ($now));        
+        if ( $heure >= 14 && $jourVisite == $jour)
+        {
+            $formulaire->setType("demi_journee");
+        } else {
+            $formulaire->setType("journee");
+        }
         $billets = $formulaire->getBillets();
         $mail = $formulaire->getEmail();
         foreach ($billets as $billet) {
@@ -61,9 +75,5 @@ class P4Forms
             $prix = 12;
         } else {}
         return $prix;
-    }
-
-    public function nombre() {
-        
     }
 }
