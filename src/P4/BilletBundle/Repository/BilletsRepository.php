@@ -10,4 +10,13 @@ namespace P4\BilletBundle\Repository;
  */
 class BilletsRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function countNbBilletPerDate(\DateTime $date)
+    {
+        $qb = $this->createQueryBuilder('t')
+            ->select('count(t.date)')
+            ->where('t.date = :date')
+            ->setParameter('date', $date);
+
+        return intval($qb->getQuery()->getSingleScalarResult());
+    }
 }

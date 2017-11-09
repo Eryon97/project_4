@@ -25,27 +25,8 @@ class FormulaireController extends Controller
             $somme = $_SESSION['somme'];
             $_SESSION['billets'] = $billets;
             $_SESSION['formulaire'] = $formulaire;
-            $date = $formulaire->getDate();
-            $nbBillet = $formulaire->getNombre();
-            $repository = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('P4BilletBundle:Billets');
 
-            $qb= $repository->createQueryBuilder('t');
-            $qb->select('count(t.date)');
-            $qb->where('t.date = :date');
-            $qb->setParameter('date', $date);
-            $nombre= $qb->getQuery()->getSingleScalarResult();
-            $nombre = $nombre + $nbBillet;
-            $_SESSION['nb'] = $nombre;
-            
-            if ($nombre >= 3)
-            {
-                $request->getSession()->getFlashBag()->add('warning', 'Attention, la limite d\'accueil du musée est atteinte pour cette date, veuillez choisir une autre date.');
-                return $this->redirectToRoute('p4_billet_homepage');
-            } else {
-                return $this->redirectToRoute('p4_billet_resume');
-            }            
+            return $this->redirectToRoute('p4_billet_resume');       
         }
 
         return $this->render('P4BilletBundle:Default:index.html.twig', array(

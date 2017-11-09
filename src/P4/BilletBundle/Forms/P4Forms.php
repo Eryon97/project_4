@@ -11,15 +11,9 @@ class P4Forms
     {
         $somme = 0;
         $date = $formulaire->getDate();
-        $jourVisite = date('d', ($date->format('dmY')));
-        $now = date('dmY');
-        $jour = date('d', ($now));
-        $heure = date('H', ($now));      
-        if ( $heure >= 14 && $jourVisite == $jour)
+        if ( $date->format('h') >= 14 && $date->format('dmY') === (new \DateTime())->format('dmY'))
         {
             $formulaire->setType("demi_journee");
-        } else {
-            $formulaire->setType("journee");
         }
         $billets = $formulaire->getBillets();
         $mail = $formulaire->getEmail();
