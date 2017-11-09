@@ -7,3 +7,9 @@ services:
 
     p4_billet.forms:
         class: P4\BilletBundle\Forms\P4Forms
+    
+    p4_billet.limitbilletday:
+        class: P4\BilletBundle\Validator\Constraints\LimitBilletDayValidator
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: validator.constraint_validator, alias: p4_billet_limitbilletday }

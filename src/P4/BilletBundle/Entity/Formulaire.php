@@ -6,12 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use P4\BilletBundle\Entity\Billet;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use P4\BilletBundle\Validator\Constraints\LimitBilletDay;
 
 /**
  * Formulaire
  *
  * @ORM\Table(name="p4_formulaire")
  * @ORM\Entity(repositoryClass="P4\BilletBundle\Repository\FormulaireRepository")
+ * @LimitBilletDay()
  */
 class Formulaire
 {
@@ -34,7 +36,7 @@ class Formulaire
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="integer")
+     * 
      */
      private $nombre;
 
