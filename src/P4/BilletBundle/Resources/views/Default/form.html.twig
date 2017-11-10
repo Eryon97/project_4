@@ -43,16 +43,11 @@
       </div>
     </div> 
 
-
-    {{ form_widget(form.billets) }}
-
     <div class="form-group">
       {{ form_widget(form.save, {'attr': {'class': 'col-sm-offset-3 col-sm-6 btn-success paiement'}}) }}
     </div>
     
   </div>
-
-  {{ form_rest(form) }}
 
 {{ form_end(form) }}
 
@@ -79,71 +74,4 @@
       datesDisabled: ['1/1/2017', '1/5/2017', '8/5/2017', '14/07/2017', '15/08/2017', '1/11/2017', '11/11/2017', '25/12/2017', '17/04/2017', '25/05/2017', '5/06/2017']
   });
 
-  var $container = $('div#formulaire_billets');
-  // On définit un compteur unique pour nommer les formulaires qu'on va ajouter dynamiquement
-  var index = $container.find(':input').length;
-
-  $(".paiement").hide();
-
-  // On ajoute un nouveau formulaire à chaque clic sur le lien d'ajout.
-  $('.nombre').change(function(e) {
-
-    $(".paiement").show(); 
-
-    var nombreBillets = $('input#formulaire_nombre').val();
-
-    // Conditions si on doit ajouter ou retirer un billet en fonction de la demande client et le nombre de formulaire affiché
-    if (index == 0 ) {
-      for(var i=0; i<nombreBillets; i++) {
-        addBillet($container);
-      }
-    } else if ( index < nombreBillets ) {
-      while ( index < nombreBillets ) {
-        addBillet($container);
-      }
-    } else if ( index > nombreBillets ) {
-      while (index > nombreBillets) {
-        removeBillet();        
-      }
-    } else {}
-    recapCommande();
-    e.preventDefault(); 
-    return false;
-  });
-
-  // La fonction qui ajoute un formulaire billet
-  function addBillet($container) {
-    var template = $container.attr('data-prototype')
-        .replace(/__name__label__/g, 'Billet N°' + (index+1))
-        .replace(/__name__/g,        index)
-      ;
-
-    // On crée un objet jquery qui contient ce template
-    var $prototype = $(template);
-
-    // On ajoute le prototype modifié à la fin de la balise <div>
-    $container.append($prototype);
-
-    $('#formulaire_billets_' + index + '_naissance').addClass('datepicker prix');
-    $('#formulaire_billets_' + index + '_tarif').addClass('prix');
-
-    $('#formulaire_billets_' + index + '_naissance').datepicker({
-      format: "dd/mm/yyyy",
-      weekStart: 1,
-      autoclose: true,
-      endDate: '0',
-      startDate: '01/01/1900',
-      language: 'fr',
-    });
-
-    // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
-    index++;
-  }
-
-  //Fonction qui retire un formulaire billet
-  function removeBillet() {
-    $("div#formulaire_billets > div.form-group:last-child").remove();
-
-    index--;
-  }
 </script>

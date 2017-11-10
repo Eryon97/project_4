@@ -19,7 +19,7 @@ class LimitBilletDayValidator extends ConstraintValidator
     public function validate($formulaire, Constraint $constraint)
     {
         $nbBillets = $this->em->getRepository(Billets::class)->countNbBilletPerDate($formulaire->getDate());
-        if ($nbBillets + count($formulaire->getBillets()) > 0)
+        if ($nbBillets + count($formulaire->getBillets()) > 1)
         {
             $this->context->buildViolation("Limite atteinte")->addViolation();
         }

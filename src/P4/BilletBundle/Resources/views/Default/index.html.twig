@@ -126,9 +126,9 @@
         heure = now.getHours();
         option = $("option[value=journee]").get();
         if (heure >= 14 && jourVisite == jour) {
-            $("#formulaire_type option[value=journee]").remove();
+            $("#start_form_type option[value=journee]").remove();
         } else if (option == "") {
-            $("#formulaire_type").prepend($('<option>', {
+            $("#start_form_type").prepend($('<option>', {
                 value : 'journee',
                 text : 'Journée'
             }));

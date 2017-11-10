@@ -36,7 +36,6 @@ class P4Forms
             $billet->setDate($date);
         }
         $_SESSION['somme'] = ($somme * 100);
-        $_SESSION['email'] = $mail;
 
         return $billets;
     }

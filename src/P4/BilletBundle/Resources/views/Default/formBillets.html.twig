@@ -1,0 +1,83 @@
+{% extends "P4BilletBundle::layout.html.twig" %}
+
+{% block header %}
+<div class="header">
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="well">
+  <p> Date de visite : {{ session.formulaire.date.date|date("d/m/Y") }}</p>
+  <p> Nombre de billet : <div class='nombre'>{{ session.formulaire.nombre }}</div></p>
+  <p> Email : {{ session.formulaire.email }}</p>
+  <p> Type de billet : 
+    {% if session.formulaire.type == 'journee' %} Journée 
+    {% elseif session.formulaire.type == 'demi_journee'%} Demi-Journée 
+    {% endif %}
+  </p>
+
+
+{{ form_start(form, {'attr': {'class': 'form-horizontal' }}) }}
+  <div class="formulaire">
+
+    {{ form_errors(form) }}
+
+    {% set index = 0 %}
+
+    {% for billet in form.billets %}
+
+    <div class="titre">Billet N° {{ index + 1 }}</div>
+
+      {{ form_widget(billet) }}
+
+      {% set index = index + 1 %}
+
+    {% endfor %}
+
+    <div class="form-group">
+      {{ form_widget(form.save, {'attr': {'class': 'col-sm-offset-3 col-sm-6 btn-success paiement'}}) }}
+    </div>
+    
+  </div>
+
+{{ form_end(form) }}
+
+</div>
+
+<script type="text/javascript" src="{{ asset('bundles/p4billet/jquery/jquery.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/p4billet/jquery/jquery-ui.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/p4billet/datepicker/js/bootstrap-datepicker.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/p4billet/datepicker/locales/bootstrap-datepicker.fr.min.js') }}"></script>
+<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"></script>
+
+
+
+<script type="text/javascript">
+
+  $('.datepicker').datepicker({
+      format: "dd/mm/yyyy",
+      startDate: '0',
+      endDate: '31/12/2017',
+      language: 'fr',
+      daysOfWeekDisabled: "0",
+      autoclose: true,
+      todayHighlight: true,
+      datesDisabled: ['1/1/2017', '1/5/2017', '8/5/2017', '14/07/2017', '15/08/2017', '1/11/2017', '11/11/2017', '25/12/2017', '17/04/2017', '25/05/2017', '5/06/2017']
+  });
+
+  var template = $container.attr('data-prototype') 
+        .replace(/__name__label__/g, 'Billet N°' + (index+1)) 
+        .replace(/__name__/g,        index) 
+      ; 
+ 
+    // On crée un objet jquery qui contient ce template 
+    var $prototype = $(template); 
+ 
+    // On ajoute le prototype modifié à la fin de la balise <div> 
+    $container.append($prototype);
+
+</script>
+
+{% endblock %}

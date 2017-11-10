@@ -16,25 +16,27 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
 
-class FormulaireType extends AbstractType
+class StartFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('billets', CollectionType::class, array(
-            'entry_type' => BilletType::class,
-            'allow_add'    => true,
-            'allow_delete' => true,
+        ->add('date', DateType::class, array(
+            'widget' => 'single_text',
+            'format' => 'dd/MM/yyyy',
         ))
+        ->add('nombre', IntegerType::class, array(
+            'attr' => array('min' => 1, 'max' => 25)
+        ))
+        ->add('type', ChoiceType::class, array(
+            'choices' => array(
+                'Journée' => 'journee',
+                'Demi-Journée' => 'demi_journee',
+            )
+        ))
+        ->add('email', EmailType::class)
         ->add('save', SubmitType::class, array(
-            'label' => 'Paiement'
-        ));
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data-class' => 'P4\BilletBundle\Entity\Formulaire'
+            'label' => 'Continuer'
         ));
     }
 }
