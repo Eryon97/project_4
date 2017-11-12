@@ -30,7 +30,7 @@ class P4Forms
             $prenom = $billet->getPrenom();
             $anniv = $billet->getNaissance();
             $cle = "MDL" . $date->format('dmY') . $nom . $prenom . $anniv->format('dmY') . "";
-            $billet->setCle(sha1($cle));
+            $billet->setCle(password_hash($cle, PASSWORD_DEFAULT));
             $somme = $somme + $prix;
             $billet->setPrix($prix);
             $billet->setDate($date);

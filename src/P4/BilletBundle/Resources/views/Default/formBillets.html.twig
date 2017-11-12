@@ -147,7 +147,7 @@
 <script type="text/javascript">
 
 $(document).ready(function()
-  {
+  { 
     var index = $('.nombre').html();
     for ( b=0; b<index; b++)
     {
@@ -155,14 +155,18 @@ $(document).ready(function()
     }
     $('.naissance').datepicker({
       format: "dd/mm/yyyy",
+      startDate: '01/01/1900',
       endDate: '0',
       language: 'fr',
       autoclose: true,
       todayHighlight: true,
     });
 
+    $(document).change(function() {
+      recapCommande();
+    });
 
-    $(".prix").change(function() {
+    function recapCommande() {
         QBG = QBE = QBN = QBS = QBR = 0;
         PBG = PBE = PBN = PBS = PBR = 0;
         somme = 0;
@@ -172,7 +176,7 @@ $(document).ready(function()
         $(".senior").addClass("hide");
         $(".reduit").addClass("hide");
         var index = $('.nombre').html();
-        for ( b=0; b<index; b++) {     
+        for ( b=0; b<index; b++) {    
             date = $("#formulaire_billets_"+b+"_naissance").datepicker("getDate");
             dateVisite = $('.dateVisite').html();
             calcul_age(date, dateVisite);
@@ -189,7 +193,7 @@ $(document).ready(function()
                 $("#formulaire_billets_"+b+"_naissance").val('');
             }
         }
-      }); 
+      }; 
 
     //Calcul de l'age en fonction de la date de naissance et de la date de visite
     function calcul_age(date, dateVisite) {
@@ -262,7 +266,6 @@ $(document).ready(function()
 
         $('.somme').html('Prix Total = ' + somme + "€");
     } 
-
 });
     
 </script>
