@@ -26,6 +26,7 @@ class Billets
      * @var date
      *
      * @ORM\Column(name="date", type="date")
+     * 
      */
      private $date;
 

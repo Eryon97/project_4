@@ -52,14 +52,18 @@ class FormulaireController extends Controller
 
         $_SESSION['formulaire'] = $formulaire;
 
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $forms = $this->container->get('p4_billet.forms');
             $billets = $forms->billets($formulaire);
             $_SESSION['billets'] = $billets;
-        
-            return $this->redirectToRoute('p4_billet_resume');       
+
+            if ($_SESSION['somme'] == 0)
+            {
+                echo '<script>alert("Attention, un billet enfant ne peut etre reservé sans billet(s) adulte(s)");</script>';
+            } else {
+                return $this->redirectToRoute('p4_billet_resume');
+            }                   
         }
 
         return $this->render('P4BilletBundle:Default:formBillets.html.twig', array(
@@ -81,7 +85,7 @@ class FormulaireController extends Controller
                 'somme' => $somme,
                 'formulaire' => $formulaire,
             ));
-        }
+        } 
     }
 
     public function validationAction(Request $request)
