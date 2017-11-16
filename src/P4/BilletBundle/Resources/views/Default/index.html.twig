@@ -5,46 +5,69 @@
 {% block title %}Accueil{% endblock %}
 
 {% block header %}
-<div class="header">
-</div>
 
-{% for message in app.session.flashbag.get('success') %}
-    <div class="alert alert-success center">{{ message }}</div>
-{% endfor %}
-{% for message in app.session.flashbag.get('warning') %}
-    <div class="alert alert-warning center">{{ message }}</div>
-{% endfor %}
+    <div class="img">
+        <img class="baniere" src="{{ asset('bundles/p4billet/images/background2.jpg') }}" alt="Musée du Louvre">
+    </div>
+
+    {% for message in app.session.flashbag.get('success') %}
+        <div class="alert alert-success center">{{ message }}</div>
+    {% endfor %}
+
+    {% for message in app.session.flashbag.get('warning') %}
+        <div class="alert alert-warning center">{{ message }}</div>
+    {% endfor %}
+
 {% endblock %}
 
+
+{% block info %}
+
+    <div id="info" class="col-xs-12 col-md-2 col-lg-2">
+    </div>
+
+{% endblock %}       
+
+
 {% block content %}
-<p class="big"> Réservations </p>
+<div id="content" class="col-xs-12 col-md-8 col-lg-8">
+    <div class="grey">
+        <p class="big"><span class="glyphicon glyphicon-calendar icone"></span> Réservations</p>
+    </div>
 
-<div class="well form">
+    <div class="well form">
 
-{{ include("P4BilletBundle:Default:form.html.twig") }}
+    {{ include("P4BilletBundle:Default:form.html.twig") }}
+
+    </div>
+
+    <script type='text/javascript'>
+
+        //Modification du choix entre journee et demi journee en fonction de la date
+        $('.visite').change(function () {
+            visite = $('.visite').datepicker('getDate');
+            jourVisite = visite.getDay();
+            now = new Date();
+            jour = now.getDay();
+            heure = now.getHours();
+            option = $("option[value=journee]").get();
+            if (heure >= 14 && jourVisite == jour) {
+                $("#start_form_type option[value=journee]").remove();
+            } else if (option == "") {
+                $("#start_form_type").prepend($('<option>', {
+                    value : 'journee',
+                    text : 'Journée'
+                }));
+            }
+        });
+
+    </script>
 
 </div>
 
-<script type='text/javascript'>
+{% endblock %}
 
-    //Modification du choix entre journee et demi journee en fonction de la date
-    $('.visite').change(function () {
-        visite = $('.visite').datepicker('getDate');
-        jourVisite = visite.getDay();
-        now = new Date();
-        jour = now.getDay();
-        heure = now.getHours();
-        option = $("option[value=journee]").get();
-        if (heure >= 14 && jourVisite == jour) {
-            $("#start_form_type option[value=journee]").remove();
-        } else if (option == "") {
-            $("#start_form_type").prepend($('<option>', {
-                value : 'journee',
-                text : 'Journée'
-            }));
-        }
-    });
-
-</script>
-
+{% block recap %}
+    <div id="recap" class="col-xs-12 col-md-2 col-lg-2">
+    </div>
 {% endblock %}

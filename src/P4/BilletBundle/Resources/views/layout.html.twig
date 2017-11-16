@@ -31,12 +31,16 @@
 
 </head>
 <body>
-    {% block header %}{% endblock %}
+    {% block header %}
+    <div class="img">
+        <img class="baniere" src="{{ asset('bundles/p4billet/images/background2.jpg') }}" alt="Musée du Louvre">
+    </div>
+    {% endblock %}
     <div class="container">
         <div class="row">
-            <div id="info" class="col-sm-2 ">{% block info %}{% endblock %}</div>        
-            <div id="content" class=" col-sm-8">{% block content %}{% endblock %}</div>
-            <div id="recap" class=" col-sm-2 ">{% block recap %}{% endblock %}</div>
+            {% block info %}{% endblock %}       
+            {% block content %}{% endblock %}
+            {% block recap %}{% endblock %}
         </div>
         <div class="row">
         <footer class="footer">
@@ -46,19 +50,7 @@
     </div>
 
 <script type="text/javascript">
-if ($(window).width() > 767 ) {
-    $(window).scroll(function() {
-        if ($(this).scrollTop() > 350 ) {
-            $('#info').addClass('fixed');
-            $('#content').addClass('col-sm-offset-2');
-            $('#recap').addClass('col-sm-offset-10 fixed');
-        } else {
-            $('#info').removeClass('fixed');
-            $('#content').removeClass('col-sm-offset-2');
-            $('#recap').removeClass('col-sm-offset-10 fixed');
-        }
-    });
-};
+
 </script>
 
 </body>

@@ -84,6 +84,7 @@ class FormulaireController extends Controller
                 'billets' => $billets,
                 'somme' => $somme,
                 'formulaire' => $formulaire,
+                'session' => $_SESSION,
             ));
         } 
     }

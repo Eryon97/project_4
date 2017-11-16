@@ -1,83 +1,87 @@
+{# src/P4/BilletBundle/Resources/views/Default/formBillets.html.twig #}
+
 {% extends "P4BilletBundle::layout.html.twig" %}
 
-{% block header %}
-<div class="header">
-</div>
-{% endblock %}
+{% block title %}Reservation billets{% endblock %}
 
 {% block info %}
-<div class="well">
-    <div class="text-center titre">
-        Tarifs :
+<div id="info" class="col-xs-12 col-md-3 col-lg-2">
+    <div class="well">
+        <div class="grey title-white">
+            <p>Tarifs :</p>
+        </div>
+        <table class="table table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th>Billet</th>
+                    <th>Prix</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Enfant<h6>(entre 4 et 12 ans)</h6></td>
+                    <td>8€</td>
+                </tr>
+                <tr>
+                    <td>Normal<h6>(à partir de 12 ans)</h6></td>
+                    <td>16€</td>
+                </tr>
+                <tr>
+                    <td>Senior<h6>(à partir de 60 ans)</h6></td>
+                    <td>12€</td>
+                </tr>
+                <tr>
+                    <td>Réduit<h6>(sous conditions)</h6></td>
+                    <td>10€</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>L'entrée pour les enfants de moins de 4 ans est gratuite !</p>
     </div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Billet</th>
-                <th>Prix</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Enfant<h6>(entre 4 et 12 ans)</h6></td>
-                <td>8€</td>
-            </tr>
-            <tr>
-                <td>Normal<h6>(à partir de 12 ans)</h6></td>
-                <td>16€</td>
-            </tr>
-            <tr>
-                <td>Senior<h6>(à partir de 60 ans)</h6></td>
-                <td>12€</td>
-            </tr>
-            <tr>
-                <td>Réduit<h6>(sous conditions)</h6></td>
-                <td>10€</td>
-            </tr>
-        </tbody>
-    </table>
-    <p>L'entrée pour les enfants de moins de 4 ans est gratuite !</p>
 </div>
 {% endblock %}
 
 {% block content %}
-
-<div class="well">
-  <p> Date de visite : <span class="dateVisite">{{ session.formulaire.date.date|date("d/m/Y") }}</span></p>
-  <p> Nombre de billet : <span class='nombre'>{{ session.formulaire.nombre }}</span></p>
-  <p> Email : {{ session.formulaire.email }}</p>
-  <p> Type de billet : 
-    {% if session.formulaire.type == 'journee' %} Journée 
-    {% elseif session.formulaire.type == 'demi_journee'%} Demi-Journée 
-    {% endif %}
-  </p>
-
-
-{{ form_start(form, {'attr': {'class': 'form-horizontal' }}) }}
-  <div class="formulaire">
-
-    {{ form_errors(form) }}
-
-    {% set index = 0 %}
-
-    {% for billet in form.billets %}
-
-    <div class="titre">Billet N° {{ index + 1 }}</div>
-
-      {{ form_widget(billet) }}
-
-      {% set index = index + 1 %}
-
-    {% endfor %}
-
-    <div class="form-group">
-      {{ form_widget(form.save, {'attr': {'class': 'col-sm-offset-3 col-sm-6 btn-success paiement'}}) }}
+<div id="content" class="col-xs-12 col-md-6 col-lg-8">
+    <div class="grey">
+        <p class="big"><span class="glyphicon glyphicon-info-sign icone"></span> Info Réservation</p>
     </div>
-    
-  </div>
+    <div class="well">
+        <p><b>Date de visite :</b> <span class="dateVisite">{{ session.formulaire.date.date|date("d/m/Y") }}</span></p>
+        <p><b>Nombre de billet :</b> <span class='nombre'>{{ session.formulaire.nombre }}</span></p>
+        <p><b>Email :</b> {{ session.formulaire.email }}</p>
+        <p><b>Type de billet :</b> 
+            {% if session.formulaire.type == 'journee' %} Journée 
+            {% elseif session.formulaire.type == 'demi_journee'%} Demi-Journée 
+            {% endif %}
+        </p>
+    </div>
 
-{{ form_end(form) }}
+    <div class="grey">
+        <p class="big"><span class="glyphicon glyphicon-tags icone"></span> Information Billets</p>
+    </div>
+    <div class="well">
+        {{ form_start(form, {'attr': {'class': 'form-horizontal' }}) }}
+            <div class="formulaire">
 
+                {{ form_errors(form) }}
+
+                {% set index = 0 %}
+
+                {% for billet in form.billets %}
+                    <div class="grey"><h4 class="title-white"><span class="glyphicon glyphicon-tag icone"></span> Billet N° {{ index + 1 }}</h4></div>
+
+                    {{ form_widget(billet) }}
+
+                    {% set index = index + 1 %}
+                {% endfor %}
+
+                <div class="form-group">
+                {{ form_widget(form.save, {'attr': {'class': 'col-sm-offset-3 col-sm-6 btn-success paiement'}}) }}
+                </div> 
+            </div>
+        {{ form_end(form) }}
+    </div>
 </div>
 
 <script type="text/javascript" src="{{ asset('bundles/p4billet/jquery/jquery.js') }}"></script>
@@ -91,57 +95,58 @@
 {% endblock %}
 
 {% block recap %}
-
-<div class="well">
-  <div class="text-center titre">
-      <p>Commande</p>
-  </div>
-  <div class="resume">
-          <table class="table table-striped">
-              <thead>
-                  <tr>
-                      <th class="center">Billets</th>
-                      <th class="center">Quantités</th>
-                      <th class="right">Prix</th>
-                      <th></th>
-                  </tr>
-              </thead>        
-              <tbody>                            
-                  <tr class="gratuit hide">
-                      <td class="center">Gratuit</td>
-                      <td class="QBilletGratuit center">0</td>
-                      <td class="PrixBilletGratuit right">0</td>
-                      <td>€</td>
-                  </tr>
-                  <tr class="enfant hide">
-                      <td class="center">Enfant</td>
-                      <td class="QBilletEnfant center">0</td>
-                      <td class="PrixBilletEnfant right">0</td>
-                      <td>€</td>
-                  </tr>
-                  <tr class="normal hide">
-                      <td class="center">Normal</td>
-                      <td class="QBilletNormal center">0</td>
-                      <td class="PrixBilletNormal right">0</td>
-                      <td>€</td>
-                  </tr>
-                  <tr class="senior hide">
-                      <td class="center">Senior</td>
-                      <td class="QBilletSenior center">0</td>
-                      <td class="PrixBilletSenior right">0</td>
-                      <td>€</td> 
-                  </tr>
-                  <tr class="reduit hide">
-                      <td class="center">Reduit</td>
-                      <td class="QBilletReduit center">0</td>
-                      <td class="PrixBilletReduit right">0</td>
-                      <td>€</td>                    
-                  </tr>
-              <tbody>                                                
-          </table>
-          <div class="somme">
-          </div>
-      </div>
+<div id="recap" class="col-xs-12 col-md-3 col-lg-2">
+    <div class="well">
+        <div class="grey title-white">
+            <p>Commande :</p>
+        </div>
+        <div class="resume">
+            <table class="table table-striped table-responsive">
+                <thead>
+                    <tr>
+                        <th class="center">Billets</th>
+                        <th class="center">Qts</th>
+                        <th class="right">Prix</th>
+                        <th></th>
+                    </tr>
+                </thead>        
+                <tbody>                            
+                    <tr class="gratuit hide">
+                        <td class="center">Gratuit</td>
+                        <td class="QBilletGratuit center">0</td>
+                        <td class="PrixBilletGratuit right">0</td>
+                        <td>€</td>
+                    </tr>
+                    <tr class="enfant hide">
+                        <td class="center">Enfant</td>
+                        <td class="QBilletEnfant center">0</td>
+                        <td class="PrixBilletEnfant right">0</td>
+                        <td>€</td>
+                    </tr>
+                    <tr class="normal hide">
+                        <td class="center">Normal</td>
+                        <td class="QBilletNormal center">0</td>
+                        <td class="PrixBilletNormal right">0</td>
+                        <td>€</td>
+                    </tr>
+                    <tr class="senior hide">
+                        <td class="center">Senior</td>
+                        <td class="QBilletSenior center">0</td>
+                        <td class="PrixBilletSenior right">0</td>
+                        <td>€</td> 
+                    </tr>
+                    <tr class="reduit hide">
+                        <td class="center">Reduit</td>
+                        <td class="QBilletReduit center">0</td>
+                        <td class="PrixBilletReduit right">0</td>
+                        <td>€</td>                    
+                    </tr>
+                <tbody>                                                
+            </table>
+            <div class="somme">
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">

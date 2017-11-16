@@ -2,22 +2,31 @@
 
 {% extends "P4BilletBundle::layout.html.twig" %}
 
-{% block header %}
-<div class="header">
-</div>
+{% block title %}Recapitulatif commande{% endblock %}
+
+{% block info %}
+
+    <div id="info" class="col-xs-12 col-md-1 col-lg-2">
+    </div>
+
 {% endblock %}
 
 {% block content %}
+<div id="content" class="col-xs-12 col-md-10 col-lg-8">
+    <div class="grey">
+        <p class="big">Récapitulatif et Paiement</p>
+    </div>
 
-    <p class="big">Récapitulatif et Paiement</p>
-
-    <div class="well">
+<div class="well">
+        <p><b>Date de visite :</b> <span class="dateVisite">{{ session.formulaire.date.date|date("d/m/Y") }}</span></p>
+        <p><b>Nombre de billet :</b> <span class='nombre'>{{ session.formulaire.nombre }}</span></p>
+        <p><b>Email :</b> {{ session.formulaire.email }}</p>
         {% if formulaire.type == 'journee' %}
-            <p> Type de billets : Journée </p>
+            <p><b>Type de billets :</b> Journée </p>
         {% elseif formulaire.type == 'demi_journee' %}
-            <p> Type de billets : Demi-Journée </p>
+            <p><b>Type de billets :</b> Demi-Journée </p>
         {% endif %}
-        <table class="table table-condensed">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Nom</th>
@@ -43,32 +52,31 @@
                         <td>{{ billet.prix }}€</td>
                     </tr>
                 {% endfor %}
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th>Total : {{ somme / 100 }} €
-                        <form action="{{ 'checkout' }}" method="POST">
-                            <script
-                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                data-key="{{ stripe_pk }}"
-                                data-amount={{ somme }}
-                                data-name="Musée du Louvre"
-                                data-description="Paiement"
-                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                                data-locale="auto"
-                                data-label="Payer par CB"
-                                data-allow-remember-me="false"
-                                data-zip-code="true"
-                                data-currency="eur">
-                            </script>
-                        </form>
-                    </th>
-                    <th></th>                    
-                </tr>
             </tbody>
         </table>
+        <h4 class="right">Total : {{ somme / 100 }} €
+            <form action="{{ 'checkout' }}" method="POST">
+                <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="{{ stripe_pk }}"
+                    data-amount={{ somme }}
+                    data-name="Musée du Louvre"
+                    data-description="Paiement"
+                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                    data-locale="auto"
+                    data-label="Payer par CB"
+                    data-allow-remember-me="false"
+                    data-zip-code="true"
+                    data-currency="eur">
+                </script>
+            </form>
+        </h4> 
     </div>
+</div>
 
+{% endblock %}
+
+{% block recap %}
+    <div id="recap" class="col-xs-12 col-md-1 col-lg-2">
+    </div>
 {% endblock %}
