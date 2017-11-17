@@ -95,7 +95,7 @@ class FormulaireController extends Controller
         $billets = $_SESSION['billets'];
         $formulaire = $_SESSION['formulaire'];
         $message = (new \Swift_Message('Confirmation de commande'))
-        ->setFrom('eryongaming@gmail.com')
+        ->setFrom('admin@weberyon.ovh')
         ->setTo($delivery)
         ->setBody(
             $this->renderView('P4BilletBundle:Emails:registration.html.twig', array( 'billets' => $billets )),
