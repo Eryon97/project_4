@@ -27,7 +27,7 @@ class OrderController extends Controller
             ));
             return $this->redirectToRoute("p4_billet_confirm");
         } catch(\Stripe\Error\Card $e) {
-            
+            $request->getSession()->getFlashBag()->add('error', 'Paiement refusé, merci de verfier les coordonnées bancaires.');
             return $this->redirectToRoute("p4_billet_resume");
         }
     }
