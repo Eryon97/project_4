@@ -98,7 +98,7 @@ class FormulaireController extends Controller
         ->setFrom('admin@weberyon.ovh')
         ->setTo($delivery)
         ->setBody(
-            $this->renderView('P4BilletBundle:Emails:registration.html.twig', array( 'billets' => $billets )),
+            $this->renderView('P4BilletBundle:Emails:registration.html.twig', array( 'billets' => $billets, 'formulaire' => $formulaire )),
             'text/html'
         );
 

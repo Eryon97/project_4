@@ -16,6 +16,8 @@ Cet Email tient comme confirmation de votre commande dont voici les billets : </
             <th>Prénom</th>
             <th>Date de naisance</th>
             <th>Pays</th>
+            <th>Type de billet</th>
+            <th>Prix</th>
             <th>Tarif réduit</th>
             <th>Clé du billet</th>
         </tr>
@@ -35,6 +37,8 @@ Cet Email tient comme confirmation de votre commande dont voici les billets : </
                 <td>{{ billet.prenom }}</td>
                 <td>{{ billet.naissance|date('d/m/Y') }}</td>
                 <td>{{ billet.pays }}</td>
+                <td>{{ formulaire.type }}</td>
+                <td>{{ billet.prix }}</td>
                 {% if billet.tarif == true %}
                     <td> Oui </td>
                 {% else %}

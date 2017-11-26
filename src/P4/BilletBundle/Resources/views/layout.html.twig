@@ -32,10 +32,25 @@
 </head>
 <body>
     {% block header %}
-    <div class="img">
-        <img class="baniere" src="{{ asset('bundles/p4billet/images/background2.jpg') }}" alt="Musée du Louvre">
-    </div>
+
+        <div class="img">
+            <img class="baniere" src="{{ asset('bundles/p4billet/images/background2.jpg') }}" alt="Musée du Louvre">
+        </div>
+
+        {% for message in app.session.flashbag.get('success') %}
+            <div class="alert alert-success center">{{ message }}</div>
+        {% endfor %}
+
+        {% for message in app.session.flashbag.get('warning') %}
+            <div class="alert alert-warning center">{{ message }}</div>
+        {% endfor %}
+
+        {% for message in app.session.flashbag.get('error') %}
+            <div class="alert alert-error center">{{ message }}</div>
+        {% endfor %}
+
     {% endblock %}
+    
     <div class="container">
         <div class="row">
             {% block info %}{% endblock %}       

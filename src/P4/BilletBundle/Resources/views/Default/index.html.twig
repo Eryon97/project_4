@@ -4,27 +4,6 @@
 
 {% block title %}Accueil{% endblock %}
 
-{% block header %}
-
-    <div class="img">
-        <img class="baniere" src="{{ asset('bundles/p4billet/images/background2.jpg') }}" alt="Musée du Louvre">
-    </div>
-
-    {% for message in app.session.flashbag.get('success') %}
-        <div class="alert alert-success center">{{ message }}</div>
-    {% endfor %}
-
-    {% for message in app.session.flashbag.get('warning') %}
-        <div class="alert alert-warning center">{{ message }}</div>
-    {% endfor %}
-
-    {% for message in app.session.flashbag.get('error') %}
-        <div class="alert alert-error center">{{ message }}</div>
-    {% endfor %}
-
-{% endblock %}
-
-
 {% block info %}
 
     <div id="info" class="col-xs-12 col-md-2 col-lg-2">
