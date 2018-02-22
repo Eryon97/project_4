@@ -1,13 +1,14 @@
 {# app/Resources/views/Emails/registration.html.twig #}
 
-<img src="https://img4.hostingpics.net/pics/556652background.jpg" border="0" />
+<img src="https://image.noelshack.com/minis/2018/07/2/1518543432-background2.png" border="0" alt="" />
+
 
 <h3>Confirmation de commande Musée du Louvre</h3>
 
 <p>Bonjour, </p>
 
 <p>Nous vous remercions d'avoir passé commande sur notre boutique en ligne. </br>
-Cet Email tient comme confirmation de votre commande dont voici les billets : </br></p> 
+Cet Email tient comme confirmation de votre commande dont voici les billets : </br></p>
 
 <table>
     <thead>
@@ -31,7 +32,7 @@ Cet Email tient comme confirmation de votre commande dont voici les billets : </
             <td></td>
             <td></td>
             <td> </td>
-            </tr>   
+            </tr>
             <tr>
                 <td>{{ billet.nom }}</td>
                 <td>{{ billet.prenom }}</td>
@@ -45,7 +46,7 @@ Cet Email tient comme confirmation de votre commande dont voici les billets : </
                     <td> Non </td>
                 {% endif %}
                 <td>{{ billet.cle }}</td>
-            </tr>     
+            </tr>
         {% endfor %}
     </tbody>
 </table>

@@ -1,13 +1,19 @@
 <?php
 
-namespace P4\BilletBundle\Forms;
+namespace P4\BilletBundle\Services;
 
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints\Date;
 
 class P4Forms
 {
-    public function billets($formulaire)
+    private $prixList = array();
+
+    public function __construct(array $prixList) {
+        $this->prixList = $prixList;
+    }
+
+    public function billets($formulaire, $prixList)
     {
         $somme = 0;
         $date = $formulaire->getDate();
@@ -24,7 +30,7 @@ class P4Forms
             if ($tarif == true) {
                 $prix = 10;
             } elseif ($tarif == false ) {
-                $prix = $this->prix($age);
+                $prix = $this->prix($age, $prixList);
             }
             $nom = $billet->getNom();
             $prenom = $billet->getPrenom();
@@ -40,10 +46,10 @@ class P4Forms
         return $billets;
     }
 
-    /** S'occupe du calcul de l'age en fonction des dates données 
+    /** S'occupe du calcul de l'age en fonction des dates données
     *
     * @param string $naissance $dateVisite
-    * @return int 
+    * @return int
     */
 
     public function age( \DateTime $naissance, \DateTime $dateVisite) {
@@ -53,18 +59,18 @@ class P4Forms
     /** S'occupe du calcul du prix en fonction de l'age
     *
     * @param int $age
-    * @return int 
+    * @return int
     */
 
     public function prix($age) {
         if ($age < 4 && $age >= 0) {
-            $prix = 0;
+            $prix = $this->prixList['enfant'];
         } else if ($age >= 4 && $age < 12) {
-            $prix = 8;
+            $prix = $this->prixList['junior'];
         } else if ($age >=12 && $age < 60) {
-            $prix = 16;
+            $prix = $this->prixList['adulte'];
         } else if ($age >= 60) {
-            $prix = 12;
+            $prix = $this->prixList['senior'];
         } else {}
         return $prix;
     }

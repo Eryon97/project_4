@@ -14,9 +14,9 @@ use Doctrine\ORM\EntityManager;
 
 class FormulaireController extends Controller
 {
-    
+
     public function indexAction(Request $request)
-    {  
+    {
         $formulaire = new Start();
         $form = $this->createForm(StartFormType::class, $formulaire);
 
@@ -26,8 +26,8 @@ class FormulaireController extends Controller
             $_SESSION['nombre'] = $formulaire->getNombre();
             $_SESSION['email'] = $formulaire->getEmail();
             $_SESSION['type'] = $formulaire->getType();
-        
-            return $this->redirectToRoute('p4_billet_billets');       
+
+            return $this->redirectToRoute('p4_billet_billets');
         }
 
         return $this->render('P4BilletBundle:Default:index.html.twig', array(
@@ -36,7 +36,7 @@ class FormulaireController extends Controller
     }
 
     public function billetsAction(Request $request)
-    {  
+    {
         $formulaire = new Formulaire();
         $nombre = $_SESSION['nombre'];
         for ( $i=0; $i<$nombre; $i++)
@@ -55,7 +55,8 @@ class FormulaireController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $forms = $this->container->get('p4_billet.forms');
-            $billets = $forms->billets($formulaire);
+            $prixList = $this->getParameter('prix');
+            $billets = $forms->billets($formulaire, $prixList);
             $_SESSION['billets'] = $billets;
 
             if ($_SESSION['somme'] == 0)
@@ -63,12 +64,13 @@ class FormulaireController extends Controller
                 echo '<script>alert("Attention, un billet enfant ne peut etre reservé sans billet(s) adulte(s)");</script>';
             } else {
                 return $this->redirectToRoute('p4_billet_resume');
-            }                   
+            }
         }
 
         return $this->render('P4BilletBundle:Default:formBillets.html.twig', array(
             'form' => $form->createView(),
             'session' => $_SESSION,
+            'prix' => $this->getParameter('prix'),
         ));
     }
 
@@ -85,8 +87,11 @@ class FormulaireController extends Controller
                 'somme' => $somme,
                 'formulaire' => $formulaire,
                 'session' => $_SESSION,
+                'form' => $this->createFormBuilder()->getForm()->createView()
             ));
-        } 
+        } else {
+            return $this->redirectToRoute('p4_billet_homepage');
+        }
     }
 
     public function validationAction(Request $request)

@@ -55,7 +55,7 @@
             </tbody>
         </table>
         <h4 class="right">Total : {{ somme / 100 }} €
-            <form action="{{ 'checkout' }}" method="POST">
+            {{ form_start(form, {'action': path('p4_billet_checkout')})}}
                 <script
                     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                     data-key="{{ stripe_pk }}"
@@ -70,8 +70,8 @@
                     data-email="{{ formulaire.email }}"
                     data-currency="eur">
                 </script>
-            </form>
-        </h4> 
+            {{ form_end(form) }}
+        </h4>
     </div>
 </div>
 

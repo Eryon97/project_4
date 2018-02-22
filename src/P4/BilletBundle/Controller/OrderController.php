@@ -6,29 +6,37 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+//Verification du formulaire
 
 class OrderController extends Controller
 {
-     public function checkoutAction()
+     public function checkoutAction(Request $request)
      {
-        \Stripe\Stripe::setApiKey($this->getParameter("stripe_sk"));
- 
-        // Get the credit card details submitted by the form
-        $token = $_POST['stripeToken'];
-        $somme = $_SESSION['somme'];
- 
-        // Create a charge: this will charge the user's card
-        try {
-            $charge = \Stripe\Charge::create(array(
-                "amount" => $somme, // Amount in cents
-                "currency" => "eur",
-                "source" => $token,
-                "description" => "Paiement Musée du Louvre"
-            ));
-            return $this->redirectToRoute("p4_billet_confirm");
-        } catch(\Stripe\Error\Card $e) {
-            $request->getSession()->getFlashBag()->add('error', 'Paiement refusé, merci de verfier les coordonnées bancaires.');
-            return $this->redirectToRoute("p4_billet_resume");
+        $form = $this->createFormBuilder()->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            \Stripe\Stripe::setApiKey($this->getParameter("stripe_sk"));
+    
+            // Get the credit card details submitted by the form
+            $token = $_POST['stripeToken'];
+            $somme = $_SESSION['somme'];
+    
+            // Create a charge: this will charge the user's card
+            try {
+                $charge = \Stripe\Charge::create(array(
+                    "amount" => $somme, // Amount in cents
+                    "currency" => "eur",
+                    "source" => $token,
+                    "description" => "Paiement Musée du Louvre"
+                ));
+                return $this->redirectToRoute("p4_billet_confirm");
+            } catch(\Stripe\Error\Card $e) {
+                $request->getSession()->getFlashBag()->add('error', 'Paiement refusé, merci de verfier les coordonnées bancaires.');
+                return $this->redirectToRoute("p4_billet_resume");
+            }
+        } else {
+            return $this->redirectToRoute('p4_billet_resume');
         }
     }
 }

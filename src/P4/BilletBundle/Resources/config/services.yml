@@ -6,7 +6,8 @@ services:
         #class: P4\BilletBundle\Calculs\P4Calculs
 
     p4_billet.forms:
-        class: P4\BilletBundle\Forms\P4Forms
+        class: P4\BilletBundle\Services\P4Forms
+        arguments: ['%prix%']
     
     p4_billet.limitbilletday:
         class: P4\BilletBundle\Validator\Constraints\LimitBilletDayValidator

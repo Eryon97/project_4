@@ -1,0 +1,6 @@
+parameters:
+    prix:
+        enfant: 0
+        junior: 8
+        adulte: 16
+        senior: 12
