@@ -1,6 +1,6 @@
 {# app/Resources/views/Emails/registration.html.twig #}
 
-<img src="https://image.noelshack.com/minis/2018/07/2/1518543432-background2.png" border="0" alt="" />
+<img src="http://www.image-heberg.fr/files/15217993141951121309.jpg" border="0" alt="" />
 
 
 <h3>Confirmation de commande Musée du Louvre</h3>
@@ -25,14 +25,6 @@ Cet Email tient comme confirmation de votre commande dont voici les billets : </
     </thead>
     <tbody>
         {% for billet in billets %}
-            <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td> </td>
-            </tr>
             <tr>
                 <td>{{ billet.nom }}</td>
                 <td>{{ billet.prenom }}</td>
